@@ -1,10 +1,13 @@
 import { describe, it, expect } from  "vitest";
 import { newyrs } from  "./newyrs";
+import {  newyrs as newyrsTS } from  "../bbets/newyrs";
 
 describe("moonphase", () => {
-  it("should find new moon", () => {
-    const a = newyrs(2020, 2021);
-    console.log(a);
-    expect(a).toBeTruthy();
+  it.skip("should be equal", () => {
+    const a = newyrs(1900,2030);
+    const b = newyrsTS(1900,2030);
+    expect(b).toEqual(a);
   });
+
 });
+

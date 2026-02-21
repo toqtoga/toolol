@@ -1,5 +1,5 @@
 //constants
-var EPOCH = {
+export var EPOCH = {
 	JD : 2451545, //J2000
 };
 
@@ -8,11 +8,12 @@ var PHASE = {
 	EPSD : 0.001,
 };
 
-// var MICHID = {
-// 	RA : 0.9922, //rad
-// 	RAR : 0.1579, //rev
-// 	DEC : 0.4209,
-// };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export var MICHID = {
+	RA : 0.9922, //rad
+	RAR : 0.1579, //rev
+	DEC : 0.4209,
+};
 
 //Julian date to JS date object
 export function JSDate(jd) {
