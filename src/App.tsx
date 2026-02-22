@@ -60,6 +60,16 @@ export const App = () => {
           ›
         </button>
       </div>
+      <p className="year-tagline">
+        <span className="year-tagline-name">
+          {getTsagaanSarAttributes(year, Calendar.Mongolian)["жарны жилийн нэр"]}
+        </span>
+        {" хэмээх "}
+        <span className="year-tagline-animal">
+          {getTsagaanSarAttributes(year, Calendar.Mongolian)["жил"]}
+        </span>
+        {" жил"}
+      </p>
 
       <div className="calendar-grid">
         <div className="calendar-card">
@@ -96,10 +106,8 @@ export const App = () => {
       <div className="year-attrs">
         {(
           [
-            ["жил", "Жил"],
             ["жилийн мэнгэ", "Жилийн мэнгэ"],
             ["жаран", "Жаран"],
-            ["жарны жилийн нэр", "Жарны жилийн нэр"],
           ] as const
         ).map(([key, label]) => (
           <div className="year-attr-item" key={key}>
