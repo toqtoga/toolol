@@ -32,7 +32,7 @@ export const App = () => {
         <h2 className="vertical-mn">
           ᠴᠠᠭᠠᠨ ᠰᠠᠷ᠎ᠠ
           <br />
-          ᢈᠡᠵᠢᠶ᠎ᠡ ᠪᠤᠢ?
+          ᠬᠡᠵᠢᠶ᠎ᠡ ᠪᠤᠢ?
         </h2>
         <h2>Цагаан сар хэзээ вэ?</h2>
       </div>
@@ -46,23 +46,36 @@ export const App = () => {
         </button>
       </div>
 
-      <div>
-        <div className="calendarTitle">
-          Монгол, Буриад (Орос), Тува (Орос) (Төгс буянт)
+      <div className="calendar-grid">
+        <div className="calendar-card">
+          <div className="calendarTitle">
+            Монгол, Буриад, Тува
+            <span className="calendarSubtitle">Төгс буянт</span>
+          </div>
+          <div className="calendarDate">
+            {
+              getTsagaanSarAttributes(year, Calendar.Mongolian)[
+                "он гарах огноо"
+              ]
+            }
+          </div>
         </div>
-        <div className="calendarDate">
-          {getTsagaanSarAttributes(year, Calendar.Mongolian)["он гарах огноо"]}
+        <div className="calendar-card">
+          <div className="calendarTitle">
+            Хальмаг
+            <span className="calendarSubtitle">Пүг</span>
+          </div>
+          <div className="calendarDate">
+            {getTsagaanSarAttributes(year, Calendar.Phugpa)["он гарах огноо"]}
+          </div>
         </div>
-      </div>
-      <div>
-        <div className="calendarTitle">Хальмаг (Орос) (Пүг) </div>
-        <div className="calendarDate">
-          {getTsagaanSarAttributes(year, Calendar.Phugpa)["он гарах огноо"]}
+        <div className="calendar-card">
+          <div className="calendarTitle">
+            Өвөр Монгол, Хятад
+            <span className="calendarSubtitle">Шар</span>
+          </div>
+          <div className="calendarDate">{chineseNewYear}</div>
         </div>
-      </div>
-      <div>
-        <div className="calendarTitle">Өвөр Монгол, Хятад (Хятад) (Шар)</div>
-        <div className="calendarDate">{chineseNewYear}</div>
       </div>
     </>
   );
