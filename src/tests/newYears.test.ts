@@ -10,6 +10,7 @@ import { Calendar } from "../utils/bbets/zurhai";
 import { tsurphuNewYears } from "./fixtures/tsurphuNewYears";
 import { losar } from "./fixtures/losar";
 import { tsurphuKagyu } from "./fixtures/tsurphuKagyu";
+import { gendenNewYears } from "./fixtures/gendenNY";
 
 describe("New Year", () => {
   it("should have correct Chinese New Year dates", () => {
@@ -28,6 +29,22 @@ describe("New Year", () => {
       const expected = formattedDate.toString();
 
       expect(calculated).toEqual(expected);
+    }
+  });
+
+  it.skip("should have correct Genden New Year dates1", () => {
+    for (let index = 0; index < gendenNewYears.length; index++) {
+      const dateStr = gendenNewYears[index];
+      const formatter = DateTimeFormatter.ofPattern("d MMM yyyy").withLocale(
+        Locale.ENGLISH,
+      );
+      const formattedDate = LocalDate.parse(dateStr, formatter);
+      const expected = formattedDate.toString();
+
+      const year = formattedDate.year();
+      const calculated = getTsagaanSarAttributes(year, Calendar.Mongolian);
+
+      expect(calculated["он гарах огноо"]).toEqual(expected);
     }
   });
 
