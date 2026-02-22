@@ -62,7 +62,7 @@ export const App = () => {
       </div>
       <p className="year-tagline">
         <span className="year-tagline-name">
-          {getTsagaanSarAttributes(year, Calendar.Mongolian)["жарны жилийн нэр"]}
+          {getTsagaanSarAttributes(year, Calendar.Mongolian)["илт өгүүлэх нэр"]}
         </span>
         {" хэмээх "}
         <span className="year-tagline-animal">

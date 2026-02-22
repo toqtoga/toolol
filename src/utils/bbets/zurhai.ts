@@ -60,9 +60,7 @@ export function get_cal_data(calendarId: number) {
           m1: D(167025).div(5656),
           m2: D(11135).div(11312), // ?
           s0: D(-5983).div(108540),
-          // s0: D(809).div(810),
           s1: D(65).div(804),
-          // s1: D(1277).div(15795),
           s2: D(13).div(4824), // ?
           a0: D(207).div(392),
           a1: D(253).div(3528),

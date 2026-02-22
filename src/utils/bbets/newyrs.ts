@@ -134,6 +134,6 @@ export const getDayAttributes = (
     "өдрийн өнгө": dayAttribs.elcor + " " + Animal[dayAttribs.animal - 1],
     "өдрийн мэнгэ": Numbern[dayAttribs.number - 1] + " " + dayAttribs.colour9,
     суудал: Element8[dayAttribs.trigram - 1],
-    "жарны жилийн нэр": JaranName[yearAttributes.year - 1],
+    "илт өгүүлэх нэр": JaranName[yearAttributes.year - 1],
   };
 };

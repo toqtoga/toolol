@@ -9,6 +9,7 @@ import { getTsagaanSarAttributes } from "../utils/bbets/newyrs";
 import { Calendar } from "../utils/bbets/zurhai";
 import { tsurphuNewYears } from "./fixtures/tsurphuNewYears";
 import { losar } from "./fixtures/losar";
+import { tsurphuKagyu } from "./fixtures/tsurphuKagyu";
 
 describe("New Year", () => {
   it("should have correct Chinese New Year dates", () => {
@@ -121,6 +122,26 @@ describe("New Year", () => {
           Number(dateStrBhutan.split("/")[0]),
         ),
       );
+    }
+  });
+
+  it.skip("should align to Karma Kagyu", () => {
+    for (let index = 0; index < tsurphuKagyu.length; index++) {
+      const dateStr = tsurphuKagyu[index].split(", ")[1];
+      const formatter = DateTimeFormatter.ofPattern("d MMM yyyy").withLocale(
+        Locale.ENGLISH,
+      );
+
+      // Format the date
+      const formattedDate = LocalDate.parse(dateStr, formatter);
+
+      const year = formattedDate.year();
+      const calculated4 = getTsagaanSarAttributes(
+        Number(year),
+        Calendar.Tsurphu,
+      )["он гарах огноо"];
+
+      expect(LocalDate.parse(calculated4)).toEqual(formattedDate);
     }
   });
 });

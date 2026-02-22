@@ -32,7 +32,7 @@ describe("moonphase", () => {
       expect(c1["өдрийн мэнгэ"]).toEqual(c2["өдрийн мэнгэ"]);
       expect(c1["суудал"]).toEqual(c2["суудал"]);
       expect(c1["битүүний сар"]).toEqual(c2["битүүний сар"]);
-      expect(c1["жарны жилийн нэр"]).toEqual(c2["жарны жилийн нэр"]);
+      expect(c1["илт өгүүлэх нэр"]).toEqual(c2["илт өгүүлэх нэр"]);
 
       // c1 to c3 (Phugpa to Phugpa1987)
       expect(c1["жарны жил"]).toEqual(c3["жарны жил"]);
@@ -47,7 +47,7 @@ describe("moonphase", () => {
       expect(c1["өдрийн мэнгэ"]).toEqual(c3["өдрийн мэнгэ"]);
       expect(c1["суудал"]).toEqual(c3["суудал"]);
       expect(c1["битүүний сар"]).toEqual(c3["битүүний сар"]);
-      expect(c1["жарны жилийн нэр"]).toEqual(c3["жарны жилийн нэр"]);
+      expect(c1["илт өгүүлэх нэр"]).toEqual(c3["илт өгүүлэх нэр"]);
     }
   });
 

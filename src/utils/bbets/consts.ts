@@ -33,7 +33,7 @@ export const TSAGAAN_SAR_ATTRIBUTES = [
   "өдрийн мэнгэ",
   "суудал",
   "битүүний сар",
-  "жарны жилийн нэр",
+  "илт өгүүлэх нэр",
 ];
 
 export const Animal = [
