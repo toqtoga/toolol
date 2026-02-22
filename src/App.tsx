@@ -3,8 +3,8 @@ import { useMemo, useState } from "react";
 import "./App.scss";
 import { getTsagaanSarAttributes } from "./utils/bbets/newyrs";
 import { Calendar } from "./utils/bbets/zurhai";
-import { CalendarChinese } from "date-chinese";
-import { pad2 } from "./utils/bbets/utils";
+// import { CalendarChinese } from "date-chinese";
+// import { pad2 } from "./utils/bbets/utils";
 
 export const App = () => {
   const [year, setYear] = useState(2026);
@@ -19,11 +19,12 @@ export const App = () => {
   // });
 
   const chineseNewYear = useMemo(() => {
-    const cal = new CalendarChinese();
-    const jde = cal.newYear(year); // Chinese New Year in JDE
-    cal.fromJDE(jde); // load that date
-    const g = cal.toGregorian(year); // { year, month, day }
-    return `${g.year}-${pad2(g.month)}-${pad2(g.day)}`;
+    // const cal = new CalendarChinese();
+    // const jde = cal.newYear(year); // Chinese New Year in JDE
+    // cal.fromJDE(jde); // load that date
+    // const g = cal.toGregorian(year); // { year, month, day }
+    // return `${g.year}-${pad2(g.month)}-${pad2(g.day)}`;
+    return "1";
   }, [year]);
 
   return (
