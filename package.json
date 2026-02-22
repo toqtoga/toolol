@@ -12,6 +12,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "date-chinese": "^2.1.4",
     "decimal.js": "^10.6.0",
     "js-joda": "^1.10.1",
     "react": "^19.2.0",

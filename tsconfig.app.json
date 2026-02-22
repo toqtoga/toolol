@@ -22,7 +22,10 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+     "paths": {
+      "date-chinese": ["./node_modules/date-chinese/types/index.d.ts"]
+    }
   },
   "include": ["src"]
 }
