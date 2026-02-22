@@ -1,5 +1,5 @@
 const EPOCH = {
-  JD: 2451545, //J2000
+  JD: 2451545, // J2000 Epoch
 } as const;
 
 const PHASE = {

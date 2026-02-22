@@ -1,6 +1,8 @@
 import { Animal, DatesMn, Element8, JaranName, Numbern } from "./consts";
 import { attrib_day, attrib_year, g2jdn, jd2g } from "./zurhai";
 
+export const pad2 = (n: number) => String(n).padStart(2, "0");
+
 export const getSingleDayAttributes = (date: Date, calendarType: number) => {
   const julianDate = g2jdn(
     date.getFullYear(),

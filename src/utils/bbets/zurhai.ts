@@ -1,4 +1,9 @@
+import Decimal from "decimal.js";
 import { Animal, Animalin, Element, Colour, Colour9 } from "./consts";
+import { amod, int_div } from "./math";
+
+// Shorthand for creating Decimal instances.
+const D = (v: Decimal.Value) => new Decimal(v);
 
 // Month offset constant used in the M* (true month count) calculation.
 // This is traditional
@@ -22,8 +27,8 @@ export const Calendar = {
 // calendar variant. These constants drive the lunisolar date calculations in the
 // Tibetan astronomical system (rtsis). Returns undefined for unknown calendar types.
 // See: https://en.wikipedia.org/wiki/Tibetan_calendar#Astronomical_calculations
-export function get_cal_data(calendar: number) {
-  switch (calendar) {
+export function get_cal_data(calendarId: number) {
+  switch (calendarId) {
     case Calendar.Phugpa: //Phugpa
       return {
         cal_type: 0,
@@ -32,15 +37,15 @@ export function get_cal_data(calendar: number) {
         betastar: 61,
         beta: 184 - 61,
         cnst: {
-          m0: 2015501 + 4783 / 5656,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: 743 / 804,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 475 / 3528,
-          a1: 253 / 3528,
-          a2: 1 / 28, //+1/105840,
+          m0: D(2015501).plus(D(4783).div(5656)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(743).div(804),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(475).div(3528),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
       };
     case Calendar.Tsurphu: //Tsurphu
@@ -51,17 +56,17 @@ export function get_cal_data(calendar: number) {
         betastar: 59,
         beta: 142,
         cnst: {
-          m0: 2353745 + 1795153 / 7635600,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: -5983 / 108540,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 207 / 392,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2353745).plus(D(1795153).div(7635600)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(-5983).div(108540),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(207).div(392),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
-      }; //+1/105840,
+      };
     case Calendar.Mongolian: //Mongolian
       return {
         cal_type: 2,
@@ -70,17 +75,17 @@ export function get_cal_data(calendar: number) {
         betastar: 10,
         beta: 172,
         cnst: {
-          m0: 2359237 + 2603 / 2828,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: 397 / 402,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 1523 / 1764,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2359237).plus(D(2603).div(2828)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(397).div(402),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(1523).div(1764),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
-      }; //+1/105840,
+      };
 
     case Calendar.Bhutanese: //Bhutanese
       return {
@@ -90,17 +95,17 @@ export function get_cal_data(calendar: number) {
         betastar: 2,
         beta: 191,
         cnst: {
-          m0: 2361807 + 52 / 707,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: 1 / 67,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 17 / 147,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2361807).plus(D(52).div(707)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(1).div(67),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(17).div(147),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
-      }; //+1/105840,
+      };
     case Calendar.Tsurphu1852: //Tsurphu
       return {
         cal_type: 1,
@@ -109,17 +114,17 @@ export function get_cal_data(calendar: number) {
         betastar: 14,
         beta: 187,
         cnst: {
-          m0: 2397598 + 1197103 / 7635600,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: 23 / 27135,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 1 / 49,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2397598).plus(D(1197103).div(7635600)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(23).div(27135),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(1).div(49),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
-      }; //+1/105840,
+      };
     case Calendar.Phugpa1927: //Phugpa
       return {
         cal_type: 0,
@@ -128,15 +133,15 @@ export function get_cal_data(calendar: number) {
         betastar: 55,
         beta: 184 - 55,
         cnst: {
-          m0: 2424972 + 5457 / 5656,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: 749 / 804,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 1741 / 3528,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2424972).plus(D(5457).div(5656)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(749).div(804),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(1741).div(3528),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
       };
     case Calendar.Phugpa1987: //Phugpa
@@ -147,15 +152,15 @@ export function get_cal_data(calendar: number) {
         betastar: 0,
         beta: 184 - 0,
         cnst: {
-          m0: 2446914 + 135 / 707,
-          m1: 167025 / 5656,
-          m2: 11135 / 11312,
-          s0: 0,
-          s1: 65 / 804,
-          s2: 13 / 4824,
-          a0: 38 / 49,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2446914).plus(D(135).div(707)),
+          m1: D(167025).div(5656),
+          m2: D(11135).div(11312),
+          s0: D(0),
+          s1: D(65).div(804),
+          s2: D(13).div(4824),
+          a0: D(38).div(49),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
       };
     case Calendar.Karana: //Karana
@@ -166,48 +171,34 @@ export function get_cal_data(calendar: number) {
         betastar: 0,
         beta: 4,
         cnst: {
-          m0: 2015531 + 1 / 2,
-          m1: 29 + 191 / 360,
-          m2: (29 + 191 / 360) / 30,
-          s0: 809 / 810,
-          s1: 1277 / 15795,
-          s2: 1277 / 15795 / 30,
-          a0: 53 / 252,
-          a1: 253 / 3528,
-          a2: 1 / 28,
+          m0: D(2015531).plus(D(1).div(2)),
+          m1: D(29).plus(D(191).div(360)),
+          m2: D(29).plus(D(191).div(360)).div(30),
+          s0: D(809).div(810),
+          s1: D(1277).div(15795),
+          s2: D(1277).div(15795).div(30),
+          a0: D(53).div(252),
+          a1: D(253).div(3528),
+          a2: D(1).div(28), //+1/105840,
         },
-      }; //+1/105840,
+      };
   }
-}
-
-// Adjusted modulo: always returns a value in [1, b] instead of [0, b-1].
-// Unlike the standard JS `%` operator which can return 0 or negative values,
-// amod(a, b) maps 0 -> b, ensuring results are always positive.
-export function amod(a: number, b: number) {
-  let t = a % b;
-  if (t <= 0) t += b;
-  return t;
-}
-
-// Integer (floor) division. Equivalent to mathematical floor(a/b).
-export function int_div(a: number, b: number) {
-  return Math.floor(a / b);
 }
 
 // Computes the "month count" (M*) — the number of months elapsed since the
 // calendar epoch. Used as the basis for intercalation and true month calculations.
-export function Mstar(Y: number, M: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function Mstar(Y: number, M: number, calendarId: number) {
+  const calData = get_cal_data(calendarId);
   const epoch = calData!.epoch; // TODO Fix
   return 12 * (Y - epoch) + M - Mzero;
 }
 
 // Computes the intercalation index for a given year/month. This index determines
 // whether a month is a leap (intercalary) month in the Tibetan lunisolar calendar.
-export function intercal_ind(Y: number, M: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function intercal_ind(Y: number, M: number, calendarId: number) {
+  const calData = get_cal_data(calendarId);
   const betastar = calData!.betastar; // TODO Fix
-  let ix = (67 * Mstar(Y, M, calendarType) + betastar) % 65;
+  let ix = (67 * Mstar(Y, M, calendarId) + betastar) % 65;
   if (ix < 0) ix += 65;
   return ix;
 }
@@ -220,16 +211,16 @@ export function true_month(
   Y: number,
   M: number,
   L: boolean,
-  calendarType: number,
+  calendarId: number,
 ) {
-  const calData = get_cal_data(calendarType);
+  const calData = get_cal_data(calendarId);
   const betastar = calData!.betastar; // TODO Fix
   const ixx = calData!.ixx; // TODO Fix
-  const p = 67 * Mstar(Y, M, calendarType) + betastar;
-  let ix = (67 * Mstar(Y, M, calendarType) + betastar) % 65;
+  const p = 67 * Mstar(Y, M, calendarId) + betastar;
+  let ix = (67 * Mstar(Y, M, calendarId) + betastar) % 65;
   if (ix < 0) ix += 65;
   const pp = (p - ix) / 65;
-  switch (calendarType) {
+  switch (calData?.cal_type) {
     case 1:
       if (L) return pp - 1;
       else return pp; //Tsurphu
@@ -248,8 +239,8 @@ export function true_month(
 // Inverse of true_month: given a true month number n, recovers the Tibetan
 // year (Y), month (M), and whether it is a leap month (L). Writes the result
 // into the `dat` output parameter.
-export function inv_month(n: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function inv_month(n: number, calendarId: number) {
+  const calData = get_cal_data(calendarId);
   const epoch = calData!.epoch; // TODO Fix
   const beta = calData!.beta; // TODO Fix
   const x = Math.ceil((65 * n + beta) / 67);
@@ -265,8 +256,8 @@ export function inv_month(n: number, calendarType: number) {
 // Determines whether the given month in a Tibetan year is an intercalary
 // (leap) month. Leap months keep the lunisolar calendar aligned with the
 // tropical year. See: https://en.wikipedia.org/wiki/Intercalation_(timekeeping)
-export function leap_month(Y: number, M: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function leap_month(Y: number, M: number, calendarId: number) {
+  const calData = get_cal_data(calendarId);
   const epoch = calData!.epoch; // TODO Fix
   const beta = calData!.beta; // TODO Fix
   let t = (24 * (Y - epoch) + 2 * M - beta) % 65;
@@ -276,8 +267,8 @@ export function leap_month(Y: number, M: number, calendarType: number) {
 
 // Determines whether the given Tibetan year contains an intercalary (leap)
 // month. A year is a leap year if its intercalation index >= 41.
-export function leap_year(Y: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function leap_year(Y: number, calendarId: number) {
+  const calData = get_cal_data(calendarId);
   const epoch = calData!.epoch; // TODO Fix
   const beta = calData!.beta; // TODO Fix
   let t = (24 * (Y - epoch) - beta) % 65;
@@ -287,8 +278,8 @@ export function leap_year(Y: number, calendarType: number) {
 
 // Returns which month number (1-12) is the leap month in a given leap year.
 // Only meaningful when leap_year(Y) returns true.
-export function leap_month_number(Y: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function leap_month_number(Y: number, calendarId: number) {
+  const calData = get_cal_data(calendarId);
   const epoch = calData!.epoch; // TODO Fix
   const beta = calData!.beta; // TODO Fix
   let t = (24 * (Y - epoch) - beta) % 65;
@@ -300,58 +291,71 @@ export function leap_month_number(Y: number, calendarType: number) {
 // day) via linear interpolation over a 28-entry sine-like lookup table.
 // This models the equation of centre for the Moon's orbit.
 // See: https://en.wikipedia.org/wiki/Equation_of_the_center
-export function moon_tab(i: number) {
-  i = i % 28;
-  if (i < 0) i += 28;
-  let s = 1;
-  if (i >= 14) {
-    i -= 14;
-    s = -1;
+export function moon_tab(i: Decimal): Decimal {
+  let idx = i.mod(28);
+  if (idx.isNeg()) idx = idx.plus(28);
+  let s = D(1);
+  if (idx.gte(14)) {
+    idx = idx.minus(14);
+    s = D(-1);
   }
-  if (i > 7) i = 14 - i;
-  const a = Math.floor(i);
-  const b = Math.ceil(i);
+  if (idx.gt(7)) idx = D(14).minus(idx);
+  const a = idx.floor();
+  const b = idx.ceil();
   const v = [0, 5, 10, 15, 19, 22, 24, 25];
-  if (a == b) return s * v[a];
-  else return (s * ((b - i) * v[a] + (i - a) * v[b])) / (b - a);
+  if (a.eq(b)) return s.times(v[a.toNumber()]);
+  return s
+    .times(
+      b
+        .minus(idx)
+        .times(v[a.toNumber()])
+        .plus(idx.minus(a).times(v[b.toNumber()])),
+    )
+    .div(b.minus(a));
 }
 
 // Sun equation table: returns the solar anomaly correction (in sixtieths of a
 // day) via linear interpolation over a 12-entry sine-like lookup table.
 // This models the equation of centre for the Sun's apparent orbit.
 // See: https://en.wikipedia.org/wiki/Equation_of_the_center
-export function sun_tab(i: number) {
-  i = i % 12;
-  if (i < 0) i += 12;
-  let s = 1;
-  if (i >= 6) {
-    i -= 6;
-    s = -1;
+export function sun_tab(i: Decimal): Decimal {
+  let idx = i.mod(12);
+  if (idx.isNeg()) idx = idx.plus(12);
+  let s = D(1);
+  if (idx.gte(6)) {
+    idx = idx.minus(6);
+    s = D(-1);
   }
-  if (i > 3) i = 6 - i;
-  const a = Math.floor(i);
-  const b = Math.ceil(i);
+  if (idx.gt(3)) idx = D(6).minus(idx);
+  const a = idx.floor();
+  const b = idx.ceil();
   const v = [0, 6, 10, 11];
-  if (a == b) return s * v[a];
-  else return (s * ((b - i) * v[a] + (i - a) * v[b])) / (b - a);
+  if (a.eq(b)) return s.times(v[a.toNumber()]);
+  return s
+    .times(
+      b
+        .minus(idx)
+        .times(v[a.toNumber()])
+        .plus(idx.minus(a).times(v[b.toNumber()])),
+    )
+    .div(b.minus(a));
 }
 
-// Computes the "true date" — the Julian day number (as a fractional value)
+// Computes the "true date" — the Julian day number (as a fractional Decimal)
 // for lunar day d in true month n. Combines the mean date with corrections
 // from both the lunar and solar equations of centre.
-export function true_date(d: number, n: number, calendarType: number) {
-  const calData = get_cal_data(calendarType);
+export function true_date(d: number, n: number, calendarId: number): Decimal {
+  const calData = get_cal_data(calendarId);
   const cnst = calData!.cnst; // TODO Fix
-  const mean_date = n * cnst.m1 + d * cnst.m2 + cnst.m0;
+  const mean_date = cnst.m1.times(n).plus(cnst.m2.times(d)).plus(cnst.m0);
 
-  const mean_sun = n * cnst.s1 + d * cnst.s2 + cnst.s0;
-  const anomaly_moon = n * cnst.a1 + d * cnst.a2 + cnst.a0;
-  const moon_equ = moon_tab(28 * anomaly_moon);
-  const anomaly_sun = mean_sun - 0.25;
-  const sun_equ = sun_tab(12 * anomaly_sun);
-  const t = mean_date + moon_equ / 60 - sun_equ / 60;
+  const mean_sun = cnst.s1.times(n).plus(cnst.s2.times(d)).plus(cnst.s0);
+  const anomaly_moon = cnst.a1.times(n).plus(cnst.a2.times(d)).plus(cnst.a0);
+  const moon_equ = moon_tab(D(28).times(anomaly_moon));
+  const anomaly_sun = mean_sun.minus("0.25");
+  const sun_equ = sun_tab(D(12).times(anomaly_sun));
 
-  return t;
+  return mean_date.plus(moon_equ.div(60)).minus(sun_equ.div(60));
 }
 
 // Computes the previous Tibetan month, accounting for intercalary months.
@@ -363,13 +367,14 @@ export function prev_month(
   M: number,
   L: boolean,
   dat: { Y: number; M: number; L: boolean },
-  calendarType: number,
+  calendarId: number,
 ) {
   dat.Y = Y;
   dat.M = M;
   dat.L = L;
-  if (calendarType <= 2) {
-    if (leap_month(Y, M, calendarType))
+  const calData = get_cal_data(calendarId);
+  if (calData!.cal_type <= 2) {
+    if (leap_month(Y, M, calendarId))
       if (L) {
         dat.L = false;
         dat.M--;
@@ -380,7 +385,7 @@ export function prev_month(
       dat.Y--;
     }
   } else {
-    if (leap_month(Y, M, calendarType))
+    if (leap_month(Y, M, calendarId))
       if (L) dat.L = false;
       else dat.M--;
     else dat.M--;
@@ -388,7 +393,7 @@ export function prev_month(
       dat.M = 12;
       dat.Y--;
     }
-    if (dat.M != M) dat.L = leap_month(dat.Y, dat.M, calendarType);
+    if (dat.M != M) dat.L = leap_month(dat.Y, dat.M, calendarId);
   }
 }
 
@@ -399,14 +404,14 @@ export function next_month(
   M: number,
   L: boolean,
   dat: { Y: number; M: number; L: boolean },
-  calendarType: number,
+  calendarId: number,
 ) {
   dat.Y = Y;
   dat.M = M;
   dat.L = L;
-
-  if (calendarType <= 2) {
-    if (leap_month(Y, M, calendarType))
+  const calData = get_cal_data(calendarId);
+  if (calData!.cal_type <= 2) {
+    if (leap_month(Y, M, calendarId))
       if (L) dat.L = false;
       else dat.M++;
     else dat.M++;
@@ -414,9 +419,9 @@ export function next_month(
       dat.M = 1;
       dat.Y++;
     }
-    if (dat.M != M) dat.L = leap_month(dat.Y, dat.M, calendarType);
+    if (dat.M != M) dat.L = leap_month(dat.Y, dat.M, calendarId);
   } else {
-    if (leap_month(Y, M, calendarType))
+    if (leap_month(Y, M, calendarId))
       if (L) {
         dat.L = false;
         dat.M++;
@@ -437,11 +442,11 @@ export function julian_day(
   M: number,
   L: boolean,
   d: number,
-  calendarType: number,
+  calendarId: number,
 ) {
-  const n = true_month(Y, M, L, calendarType);
-  const t = true_date(d, n, calendarType);
-  return Math.floor(t);
+  const n = true_month(Y, M, L, calendarId);
+  const t = true_date(d, n, calendarId);
+  return t.floor().toNumber();
 }
 
 // Returns the Julian day number of the first day of the Tibetan/Mongolian new
@@ -449,13 +454,14 @@ export function julian_day(
 // month of the previous year.
 // See: https://en.wikipedia.org/wiki/Losar
 // See: https://en.wikipedia.org/wiki/Tsagaan_Sar
-export function new_year_jd(Y: number, calendarType: number): number {
-  if (calendarType <= 2)
-    return julian_day(Y - 1, 12, false, 30, calendarType) + 1;
+export function new_year_jd(Y: number, calendarId: number): number {
+  const calData = get_cal_data(calendarId);
+  if (calData!.cal_type <= 2)
+    return julian_day(Y - 1, 12, false, 30, calendarId) + 1;
   else {
     const d = { Y: 0, M: 0, L: false };
-    prev_month(Y, 1, false, d, calendarType);
-    return julian_day(d.Y, d.M, d.L, 30, calendarType) + 1;
+    prev_month(Y, 1, false, d, calendarId);
+    return julian_day(d.Y, d.M, d.L, 30, calendarId) + 1;
   }
 }
 
@@ -464,9 +470,9 @@ export function last_day_jd(
   Y: number,
   M: number,
   L: boolean,
-  calendarType: number,
+  calendarId: number,
 ) {
-  return julian_day(Y, M, L, 30, calendarType);
+  return julian_day(Y, M, L, 30, calendarId);
 }
 
 // Returns the Julian day number of the first day of a Tibetan month
@@ -475,11 +481,11 @@ export function first_day_jd(
   Y: number,
   M: number,
   L: boolean,
-  calendarType: number,
+  calendarId: number,
 ) {
   const d = { Y: 0, M: 0, L: false };
-  prev_month(Y, M, L, d, calendarType);
-  return julian_day(d.Y, d.M, d.L, 30, calendarType) + 1;
+  prev_month(Y, M, L, d, calendarId);
+  return julian_day(d.Y, d.M, d.L, 30, calendarId) + 1;
 }
 
 // Returns the astrological attributes of a Tibetan year: the 60-year cycle
@@ -498,10 +504,12 @@ type YearAttributes = {
   number: number;
   colour9: string;
 };
-export function attrib_year(Y: number, calendarType: number): YearAttributes {
+export function attrib_year(Y: number, calendarId: number): YearAttributes {
   const colour = Colour[amod(Y - 3, 10) - 1];
   const element = Element[Math.ceil(amod(Y - 3, 10) / 2) - 1];
   const number = amod(2 - Y, 9);
+
+  const calData = get_cal_data(calendarId);
 
   return {
     year: amod(Y - 6, 60),
@@ -510,7 +518,7 @@ export function attrib_year(Y: number, calendarType: number): YearAttributes {
     animalin: Animalin[amod(Y - 3, 12) - 1],
     element,
     colour,
-    elcor: calendarType == 2 ? colour : element,
+    elcor: calData!.cal_type == 2 ? colour : element,
     number,
     colour9: Colour9[number - 1],
   };
@@ -627,18 +635,22 @@ export function lunar_month(
 }
 
 // Converts a Gregorian date and time (hour as fraction of 24) to a Julian day
-// number (fractional). Uses the algorithm from the US Naval Observatory.
+// number (fractional Decimal). Uses the algorithm from the US Naval Observatory.
 // See: https://en.wikipedia.org/wiki/Julian_day#Converting_Gregorian_calendar_date_to_Julian_Day_Number
-export function psa_jd(year: number, month: number, day: number, hour: number) {
-  return (
-    int_div(1461 * (year + 4800 + int_div(month - 14, 12)), 4) +
-    int_div(367 * (month - 2 - 12 * int_div(month - 14, 12)), 12) -
-    int_div(3 * int_div(year + 4900 + int_div(month - 14, 12), 100), 4) +
-    day -
-    32075 -
-    0.5 +
-    hour / 24
-  );
+export function psa_jd(
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+): Decimal {
+  const a = int_div(month - 14, 12);
+  return D(int_div(1461 * (year + 4800 + a), 4))
+    .plus(int_div(367 * (month - 2 - 12 * a), 12))
+    .minus(int_div(3 * int_div(year + 4900 + a, 100), 4))
+    .plus(day)
+    .minus(32075)
+    .minus("0.5")
+    .plus(D(hour).div(24));
 }
 
 // Converts a Gregorian date to a Julian day number (integer).
@@ -692,4 +704,32 @@ export function jd2g(jd: number) {
     month: ((Math.floor((dd + 0.5) / 30.6) + 2) % 12) + 1,
     day: Math.floor((dd + 0.5) % 30.6) + 1,
   };
+}
+
+// Alternative Julian day number to Gregorian date conversion that correctly handles
+// dates before the Gregorian reform (October 15, 1582). Uses the proleptic
+// Gregorian calendar for all dates, ensuring consistency across the reform boundary.
+// See: https://en.wikipedia.org/wiki/Julian_day#Julian_or_Gregorian_calendar_from_Julian_day_number
+export function jd2g_actual(jd: number) {
+  const isGregorian = jd >= 2299161;
+  let year, month, day;
+
+  if (isGregorian) {
+    const gg =
+      Math.floor(Math.floor((jd - 4479.5) / 36524.25) * 0.75 + 0.5) - 37;
+    const n = jd + gg;
+    const dd = Math.floor((n - 59.25) % 365.25);
+    year = Math.floor(n / 365.25) - 4712;
+    month = ((Math.floor((dd + 0.5) / 30.6) + 2) % 12) + 1;
+    day = Math.floor((dd + 0.5) % 30.6) + 1;
+  } else {
+    // Julian calendar
+    const n = jd;
+    const dd = Math.floor((n - 59.25) % 365.25);
+    year = Math.floor(n / 365.25) - 4712;
+    month = ((Math.floor((dd + 0.5) / 30.6) + 2) % 12) + 1;
+    day = Math.floor((dd + 0.5) % 30.6) + 1;
+  }
+
+  return { year, month, day };
 }
