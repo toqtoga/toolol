@@ -23,7 +23,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-     "paths": {
+    "paths": {
       "date-chinese": ["./node_modules/date-chinese/types/index.d.ts"]
     }
   },
