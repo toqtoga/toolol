@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { Calendar } from "./zurhai";
 import { getTsagaanSarAttributes } from "./newyrs";
-import { LocalDate } from "js-joda";
+import { LocalDate } from "@js-joda/core";
 
 describe("moonphase", () => {
   // it("should be equal", () => {

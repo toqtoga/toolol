@@ -11,8 +11,8 @@ import {
   new_year_jd,
 } from "./zurhai";
 import { Animal, Element8, JaranName, Numbern } from "./consts";
-import { LocalDate } from "js-joda";
 import { pad2 } from "./utils";
+import { LocalDate } from "@js-joda/core";
 
 // For testing former compatibility with bbe version. Do not remove.
 export function newyrs(y1: number, y2: number) {

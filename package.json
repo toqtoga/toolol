@@ -12,14 +12,16 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@js-joda/core": "^5.7.0",
+    "@js-joda/timezone": "^2.23.0",
     "date-chinese": "^2.1.4",
     "decimal.js": "^10.6.0",
-    "js-joda": "^1.10.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@js-joda/locale": "^4.15.3",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",

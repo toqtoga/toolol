@@ -68,11 +68,23 @@ body {
 .year-display {
   font-size: 3.5rem;
   font-weight: 800;
-  min-width: 6rem;
+  min-width: 10rem;
+  width: 6rem;
   text-align: center;
   color: $text;
   letter-spacing: -0.02em;
   line-height: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .year-btn {
@@ -88,7 +100,10 @@ body {
   align-items: center;
   justify-content: center;
   line-height: 1;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 
   &:hover {
     background: rgba($gold, 0.15);
@@ -122,7 +137,9 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -154,4 +171,127 @@ body {
   font-weight: 700;
   color: $text;
   letter-spacing: 0.02em;
+}
+
+// ── Year attributes ────────────────────────────────────────────────────────────
+
+.year-attrs {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.year-attr-item {
+  background: $card-bg;
+  border: 1px solid $card-border;
+  border-radius: 0.75rem;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.year-attr-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $gold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.year-attr-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: $text;
+  letter-spacing: 0.02em;
+}
+
+// ── FAQ ───────────────────────────────────────────────────────────────────────
+
+.faq {
+  margin-top: 3rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.faq-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $text-muted;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+.faq-item {
+  border: 1px solid $card-border;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  background: $card-bg;
+  border: none;
+  color: $text;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.faq-chevron {
+  font-size: 0.65rem;
+  color: $gold;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+
+  &.open {
+    grid-template-rows: 1fr;
+  }
+}
+
+.faq-answer {
+  overflow: hidden;
+  margin: 0;
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(240, 238, 232, 0.75);
+  border-top: 0px solid $card-border;
+  transition: padding 0.25s ease, border-top-width 0.25s ease;
+
+  .faq-body.open & {
+    padding: 0.75rem 1.25rem 1rem;
+    border-top-width: 1px;
+  }
 }
